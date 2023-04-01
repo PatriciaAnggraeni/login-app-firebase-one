@@ -5,11 +5,14 @@ import static android.service.controls.ControlsProviderService.TAG;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,6 +28,8 @@ public class Register extends AppCompatActivity {
     TextInputEditText inputEmail, inputPassword;
     Button btnRegister;
     FirebaseAuth mAuth;
+    ProgressBar progressBar;
+    TextView linkLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +40,18 @@ public class Register extends AppCompatActivity {
         inputEmail.findViewById(R.id.id_email);
         inputPassword.findViewById(R.id.id_password);
         btnRegister.findViewById(R.id.btn_register);
+        progressBar.findViewById(R.id.pgr_bar);
+        linkLogin.findViewById(R.id.link_login_now);
+
+        // instansiai koneksi firebase ke android
         mAuth = FirebaseAuth.getInstance();
 
         // selanjutnya beri listener kepada tombolnya
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // jadikan progress bar menjadi visible
+                progressBar.setVisibility(View.VISIBLE);
 
                 // buat variabel untuk menampung nilai dari email dan password
                 String email, password;
@@ -64,6 +75,7 @@ public class Register extends AppCompatActivity {
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(Register.this, "Login Akun Berhasil", Toast.LENGTH_SHORT).show();
@@ -73,6 +85,16 @@ public class Register extends AppCompatActivity {
                         }
                     }
                 });
+            }
+        });
+
+        linkLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // panggil class Intent agar bisa mengarahkan halaman ini ke login
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

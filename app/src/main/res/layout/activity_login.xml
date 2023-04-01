@@ -52,4 +52,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <TextView
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:padding="20dp"
+        android:text="@string/register_now"
+        android:id="@+id/link_register_now"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
