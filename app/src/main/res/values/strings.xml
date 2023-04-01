@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">LoginAppOne</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="registration_one">Registrasi</string>
+    <string name="registration_two">Daftar</string>
 </resources>
