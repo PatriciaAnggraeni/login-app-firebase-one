@@ -43,6 +43,17 @@ public class Register extends AppCompatActivity {
         progressBar.findViewById(R.id.pgr_bar);
         linkLogin.findViewById(R.id.link_login_now);
 
+        // buat link untuk mengarah ke halman login
+        linkLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // panggil class Intent agar bisa mengarahkan halaman ini ke login
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         // instansiai koneksi firebase ke android
         mAuth = FirebaseAuth.getInstance();
 
@@ -85,16 +96,6 @@ public class Register extends AppCompatActivity {
                         }
                     }
                 });
-            }
-        });
-
-        linkLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // panggil class Intent agar bisa mengarahkan halaman ini ke login
-                Intent intent = new Intent(getApplicationContext(), Login.class);
-                startActivity(intent);
-                finish();
             }
         });
     }
